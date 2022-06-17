@@ -1,6 +1,6 @@
 ﻿@page
 @model Lab4.Pages.StudentManagement.IndexModel
-
+@using Lab4.DataAccess;
 @{
     ViewData["Title"] = "Index";
 }
@@ -33,17 +33,40 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
-            <td>
+            <td>               
+@*                  int courses = 0;
+                    foreach(var ar in Model.AcademicRecord)
+                    {                     
+                        if(ar.StudentId == item.Id)
+                        {
+                            courses ++;
+                        }
+                    }*@
 
+                @Html.DisplayFor(modelItem => item.AcademicRecords.Count)                 
             </td>
             <td>
 
             </td>
             <td>
                 <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+                <a asp-page="./Delete" asp-route-id="@item.Id" id="delete">Delete</a>
             </td>
         </tr>
 }
     </tbody>
 </table>
+
+@*@section Scripts{
+    <script type="text/javascript">
+        document.querySelector("#delete").addEventListener("click", function(){
+            //alert("Please confirm to delete student: \n\n \n\nAll his/her academic records will be deleted too!")
+            let text = "Please confirm to delete student: \n\n \n\nAll his/her academic records will be deleted too!";
+            if (confirm(text) == true) {
+            console.log("ok");
+            } else {
+            console.log("cancel");
+            }
+        });
+    </script>
+}*@

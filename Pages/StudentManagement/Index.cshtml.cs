@@ -20,6 +20,8 @@ namespace Lab4.Pages.StudentManagement
 
         public IList<Student> Student { get;set; } = default!;
 
+        public IList<AcademicRecord> AcademicRecord { get; set; } = default!;
+
         public async Task OnGetAsync()
         {
             if (_context.Students != null)
