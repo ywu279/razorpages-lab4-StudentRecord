@@ -14,13 +14,13 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Student[0].Name)
+                <a class="link-primary" asp-route-orderby="name">@Html.DisplayNameFor(model => model.Student[0].Name)</a> <!-- DisplayNameFor: display the name of the property Name in Student Class -->
             </th>
             <th>
-                Number of Courses
+                <a class="link-primary" asp-route-orderby="numberOfCourses">Number of Courses</a>
             </th>
             <th>
-                Avg. Grade
+                <a class="link-primary" asp-route-orderby="avgGrade">Avg. Grade</a>
             </th>
             <th>
 
@@ -28,45 +28,23 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.Student) {
+    @foreach (var item in Model.Student) 
+    {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
-            <td>               
-@*                  int courses = 0;
-                    foreach(var ar in Model.AcademicRecord)
-                    {                     
-                        if(ar.StudentId == item.Id)
-                        {
-                            courses ++;
-                        }
-                    }*@
-                     
-                @Html.DisplayFor(modelItem => item.AcademicRecords.Count)                 
+            <td>                                    
+                @item.AcademicRecords.Count()
             </td>
             <td>
-
+                @item.AcademicRecords.Average(ar => ar.Grade)
             </td>
             <td>
                 <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.Id" id="delete">Delete</a>
+                <a asp-page="./index" asp-route-id="@item.Id" asp-page-handler="delete" onclick="confirm('Please confirm to delete student: \n\n @item.Name \n\nAll his/her academic records will be deleted too!')">Delete</a>
             </td>
         </tr>
-}
+    }
     </tbody>
 </table>
-
-@*@section Scripts{
-    <script type="text/javascript">
-        document.querySelector("#delete").addEventListener("click", function(){
-            //alert("Please confirm to delete student: \n\n \n\nAll his/her academic records will be deleted too!")
-            let text = "Please confirm to delete student: \n\n \n\nAll his/her academic records will be deleted too!";
-            if (confirm(text) == true) {
-            console.log("ok");
-            } else {
-            console.log("cancel");
-            }
-        });
-    </script>
-}*@

@@ -26,6 +26,7 @@ namespace Lab4.Pages.StudentManagement
         [BindProperty]
         public Student Student { get; set; } = default!;
         
+        public string Msg { get; set; }
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
@@ -34,6 +35,16 @@ namespace Lab4.Pages.StudentManagement
             {
                 return Page();
             }
+
+            foreach (Student s in _context.Students)
+            {
+                if(s.Id == Student.Id)
+                {
+                    Msg = $"Student Id, {s.Id} already exists";
+                    return Page();
+                }
+            }
+
 
             _context.Students.Add(Student);
             await _context.SaveChangesAsync();
